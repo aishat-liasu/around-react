@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 const Card = (props) => {
-  console.log(props.cardData.link, props.userId);
   const [isLoveButtonActive, setIsLoveButtonActive] = useState(false);
   const [isDeleteButtonHidden, setIsDeleteButtonHidden] = useState(false);
 
@@ -10,13 +9,11 @@ const Card = (props) => {
       setIsDeleteButtonHidden(true);
     }
 
-    if (props.cardData.likes.some((item) => item._id === props._userId)) {
+    if (props.cardData.likes.some((item) => item._id === props.userId)) {
       setIsLoveButtonActive(true);
     }
 
-    return () => {
-      // cleanup;
-    };
+    return () => {};
   }, [props]);
 
   function likeCard() {
@@ -24,13 +21,16 @@ const Card = (props) => {
   }
 
   function removeCard() {
-    //const placeToBeDeleted = this._placeDeleteButton.closest('.place');
-    // placeToBeDeleted.remove();
+    props.onDeleteButtonClick(true);
+  }
+
+  function handleCardClick() {
+    props.onCardClick(props.cardData);
   }
   return (
     <div className='place'>
       <button
-        className={`'place__delete-button' ${
+        className={`place__delete-button ${
           isDeleteButtonHidden ? 'hidden' : ''
         }`}
         onClick={removeCard}
@@ -39,11 +39,12 @@ const Card = (props) => {
         src={props.cardData.link || ''}
         alt={props.cardData.name}
         className='place__image'
+        onClick={handleCardClick}
       />
       <h2 className='place__title'>{props.cardData.name || 'Title'}</h2>
       <div className='place__love-section'>
         <button
-          className={`'place__love-button' ${
+          className={`place__love-button ${
             isLoveButtonActive ? 'place__love-button_active' : ''
           }`}
           onClick={likeCard}
