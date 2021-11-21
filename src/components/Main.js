@@ -16,19 +16,18 @@ const Main = (props) => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()]).then((result) => {
-      setUserName(result[0].name);
-      setUserDescription(result[0].about);
-      setUserAvatar(result[0].avatar);
-      userId.current = result[0]._id;
-      setCards(result[1]);
-    }) .catch((err) => {
+    Promise.all([api.getUserInfo(), api.getInitialCards()])
+      .then((result) => {
+        setUserName(result[0].name);
+        setUserDescription(result[0].about);
+        setUserAvatar(result[0].avatar);
+        userId.current = result[0]._id;
+        setCards(result[1]);
+      })
+      .catch((err) => {
         console.log(err); // log the error to the console
-      };
-
-    return () => {
-
-    };
+      });
+    return () => {};
   }, []);
 
   return (
