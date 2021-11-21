@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 
 import api from '../utils/api';
 import PopupwithForm from './PopupWithForm';
-import PopupWithImage from './PopupWithImage';
+import ImagePopup from './ImagePopup';
 import Card from './Card';
 
 const Main = (props) => {
@@ -133,7 +133,7 @@ const Main = (props) => {
         isOpen={props.isDeletePlacePopupOpen}
         onClose={props.onDeletePlaceClose}
       ></PopupWithForm>
-      <PopupWithImage
+      <ImagePopup
         cardData={props.selectedCard}
         isOpen={props.isImagePopupOpen}
         onClose={props.onImagePopupClose}

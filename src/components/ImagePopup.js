@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PopupWithImage = (props) => {
-  console.log(props.cardData);
+const ImagePopup = (props) => {
+  //console.log(props.cardData);
   return (
     <section
       className={`popup popup_type_image ${
@@ -27,4 +27,4 @@ const PopupWithImage = (props) => {
   );
 };
 
-export default PopupWithImage;
+export default ImagePopup;
