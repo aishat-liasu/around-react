@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/around-react/static/css/main.73972e67.chunk.css",
+    "main.js": "/around-react/static/js/main.8696514b.chunk.js",
+    "main.js.map": "/around-react/static/js/main.8696514b.chunk.js.map",
+    "runtime-main.js": "/around-react/static/js/runtime-main.00c71905.js",
+    "runtime-main.js.map": "/around-react/static/js/runtime-main.00c71905.js.map",
+    "static/js/2.501aeb6d.chunk.js": "/around-react/static/js/2.501aeb6d.chunk.js",
+    "static/js/2.501aeb6d.chunk.js.map": "/around-react/static/js/2.501aeb6d.chunk.js.map",
+    "static/js/3.f38e1770.chunk.js": "/around-react/static/js/3.f38e1770.chunk.js",
+    "static/js/3.f38e1770.chunk.js.map": "/around-react/static/js/3.f38e1770.chunk.js.map",
+    "index.html": "/around-react/index.html",
+    "static/css/main.73972e67.chunk.css.map": "/around-react/static/css/main.73972e67.chunk.css.map",
+    "static/js/2.501aeb6d.chunk.js.LICENSE.txt": "/around-react/static/js/2.501aeb6d.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/around-react/static/media/Inter-Regular.8398b376.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.00c71905.js",
+    "static/js/2.501aeb6d.chunk.js",
+    "static/css/main.73972e67.chunk.css",
+    "static/js/main.8696514b.chunk.js"
+  ]
+}
