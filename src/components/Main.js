@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import PopupWithForm from './PopupWithForm';
 
 import api from '../utils/api';
-import PopupwithForm from './PopupWithForm';
+import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import Card from './Card';
 
@@ -32,7 +31,7 @@ const Main = (props) => {
 
   return (
     <main className='main'>
-      <PopupwithForm
+      <PopupWithForm
         title='Edit Profile'
         name='edit'
         isOpen={props.isEditProfilePopupOpen}
@@ -68,7 +67,7 @@ const Main = (props) => {
             id='profile-subtitle-error'
           ></span>
         </label>
-      </PopupwithForm>
+      </PopupWithForm>
 
       <PopupWithForm
         title='New Place'
