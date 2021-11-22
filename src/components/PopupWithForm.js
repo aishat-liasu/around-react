@@ -8,11 +8,7 @@ const PopupWithForm = (props) => {
       }`}
       id={`popup_type_${props.name}`}
     >
-      <form
-        className='popup__form'
-        id={`popup__form_type_${props.name}`}
-        noValidate
-      >
+      <form className='popup__form' id={`popup__form_type_${props.name}`}>
         <button
           type='reset'
           className='popup__close-button'
@@ -22,7 +18,7 @@ const PopupWithForm = (props) => {
         <h2 className='popup__heading'>{props.title || 'Popup Title'}</h2>
         {props.children}
         <button type='submit' className='popup__submit-button'>
-          {props.name === 'confirm' ? 'Yes' : 'Save'}
+          {props.buttonText}
         </button>
       </form>
     </section>
