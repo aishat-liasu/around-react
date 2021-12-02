@@ -1,24 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import api from '../utils/api';
 import Card from './Card';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Main = (props) => {
-  const [userName, setUserName] = useState('Jacques Cousteau');
-  const [userDescription, setUserDescription] = useState('Explorer');
-  const [userAvatar, setUserAvatar] = useState('');
-  //const [userId, setUserId] = useState('');
+  const { name, about, avatar, _id } = useContext(CurrentUserContext);
   const userId = useRef('');
 
   const [cards, setCards] = useState([]);
 
+  console.log(name, _id);
+
   useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
+    api
+      .getInitialCards()
       .then((result) => {
-        setUserName(result[0].name);
-        setUserDescription(result[0].about);
-        setUserAvatar(result[0].avatar);
-        userId.current = result[0]._id;
-        setCards(result[1]);
+        userId.current = _id;
+        setCards(result);
       })
       .catch((err) => {
         console.log(err); // log the error to the console
@@ -31,7 +29,7 @@ const Main = (props) => {
         <div className='profile__content'>
           <div
             className='profile__avatar'
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${avatar})` }}
           >
             <div
               className='profile__overlay'
@@ -41,14 +39,14 @@ const Main = (props) => {
 
           <div className='profile__info'>
             <div className='profile__title-edit'>
-              <h1 className='profile__title'>{userName}</h1>
+              <h1 className='profile__title'>{name || 'Aishat Liasu'}</h1>
               <button
                 type='submit'
                 className='profile__edit-button'
                 onClick={props.onEditProfileClick}
               ></button>
             </div>
-            <p className='profile__subtitle'>{userDescription}</p>
+            <p className='profile__subtitle'>{about || 'Software Engineer'}</p>
           </div>
         </div>
 
