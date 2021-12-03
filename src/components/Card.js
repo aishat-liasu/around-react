@@ -1,23 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Card = (props) => {
   const [isLoveButtonActive, setIsLoveButtonActive] = useState(false);
   const [isDeleteButtonHidden, setIsDeleteButtonHidden] = useState(false);
+  const { _id } = useContext(CurrentUserContext);
 
+  //console.log(props.cardData);
   useEffect(() => {
-    if (props.cardData.owner._id !== props.userId) {
+    if (props.cardData.owner._id !== _id) {
       setIsDeleteButtonHidden(true);
     }
 
-    if (props.cardData.likes.some((item) => item._id === props.userId)) {
+    props.cardData.likes.some((item) => item._id === _id)
+      ? setIsLoveButtonActive(true)
+      : setIsLoveButtonActive(false);
+
+    /*     if (props.cardData.likes.some((item) => item._id === _id)) {
       setIsLoveButtonActive(true);
+      console.log(isLoveButtonActive);
     }
 
-    return () => {};
+    return () => {}; */
   }, [props]);
 
   function likeCard() {
-    setIsLoveButtonActive(true);
+    //setIsLoveButtonActive(true);
+    props.onCardLike(props.cardData);
   }
 
   function removeCard() {
