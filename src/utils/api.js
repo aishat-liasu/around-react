@@ -28,8 +28,8 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: item.profileName,
-        about: item.profileJob,
+        name: item.name,
+        about: item.about,
       }),
     }).then(this._checkResponse);
   }
@@ -39,7 +39,7 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: item.profilePictureURL,
+        avatar: item.avatar,
       }),
     }).then(this._checkResponse);
   }
@@ -72,19 +72,6 @@ class Api {
           method: 'DELETE',
           headers: this._headers,
         }).then(this._checkResponse);
-  }
-  likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: this._headers,
-    }).then(this._checkResponse);
-  }
-
-  unlikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: 'DELETE',
-      headers: this._headers,
-    }).then(this._checkResponse);
   }
 }
 
