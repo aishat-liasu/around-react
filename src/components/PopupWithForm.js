@@ -8,7 +8,11 @@ const PopupWithForm = (props) => {
       }`}
       id={`popup_type_${props.name}`}
     >
-      <form className='popup__form' id={`popup__form_type_${props.name}`}>
+      <form
+        className='popup__form'
+        id={`popup__form_type_${props.name}`}
+        onSubmit={props.onSubmit}
+      >
         <button
           type='reset'
           className='popup__close-button'
