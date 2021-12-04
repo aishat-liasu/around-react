@@ -8,29 +8,22 @@ const Card = (props) => {
 
   //console.log(props.cardData);
   useEffect(() => {
-    if (props.cardData.owner._id !== _id) {
-      setIsDeleteButtonHidden(true);
-    }
+    props.cardData.owner._id !== _id
+      ? setIsDeleteButtonHidden(true)
+      : setIsDeleteButtonHidden(false);
 
     props.cardData.likes.some((item) => item._id === _id)
       ? setIsLoveButtonActive(true)
       : setIsLoveButtonActive(false);
-
-    /*     if (props.cardData.likes.some((item) => item._id === _id)) {
-      setIsLoveButtonActive(true);
-      console.log(isLoveButtonActive);
-    }
-
-    return () => {}; */
-  }, [props]);
+  }, [props, _id]);
 
   function likeCard() {
-    //setIsLoveButtonActive(true);
     props.onCardLike(props.cardData);
   }
 
   function removeCard() {
-    props.onDeleteButtonClick(true);
+    //props.onDeleteButtonClick(true);
+    props.onCardDelete(props.cardData._id);
   }
 
   function handleCardClick() {
