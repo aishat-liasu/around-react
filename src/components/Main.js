@@ -4,7 +4,7 @@ import Card from './Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Main = (props) => {
-  const { name, about, avatar, _id } = useContext(CurrentUserContext);
+  const { name, about, avatar } = useContext(CurrentUserContext);
 
   return (
     <main className='main'>
@@ -49,7 +49,7 @@ const Main = (props) => {
               onCardClick={props.onCardClick}
               onDeleteButtonClick={props.onDeletePlaceClick}
               onCardLike={props.onCardLike}
-              onCardDelete={props.onCardDelete}
+              onCardDelete={props.onDeletePlaceClick}
             />
           );
         })}
