@@ -2,11 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 
-const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
+const EditProfilePopup = ({
+  isOpen,
+  onClose,
+  onUpdateUser,
+  buttonText,
+  setButtonText,
+}) => {
   const [name, setName] = useState('Name');
   const [description, setDescription] = useState('About');
-
-  const [buttonText, setButtonText] = useState('Save');
 
   // Subscription to the context
   const currentUser = useContext(CurrentUserContext);
@@ -35,7 +39,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       name='edit'
       isOpen={isOpen}
       onClose={onClose}
-      buttonText='Save'
+      buttonText={buttonText}
       onSubmit={handleSubmit}
     >
       <label className='popup__label'>
