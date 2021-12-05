@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-const AddPlacePopup = ({ isOpen, onClose, onAddPlaceSubmit }) => {
+const AddPlacePopup = ({
+  isOpen,
+  onClose,
+  onAddPlaceSubmit,
+  buttonText,
+  setButtonText,
+}) => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    setButtonText('Saving');
     onAddPlaceSubmit({
       name,
       link,
@@ -20,7 +27,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlaceSubmit }) => {
       name='add'
       isOpen={isOpen}
       onClose={onClose}
-      buttonText='Save'
+      buttonText={buttonText}
       onSubmit={handleSubmit}
     >
       <label className='popup__label'>
