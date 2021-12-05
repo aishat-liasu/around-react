@@ -1,12 +1,19 @@
 import React, { useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 
-const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
+const EditAvatarPopup = ({
+  isOpen,
+  onClose,
+  onUpdateAvatar,
+  buttonText,
+  setButtonText,
+}) => {
   const avatarRef = useRef('');
 
   function handleSubmit(e) {
     e.preventDefault();
 
+    setButtonText('Saving');
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
@@ -18,7 +25,7 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
       name='change'
       isOpen={isOpen}
       onClose={onClose}
-      buttonText='Save'
+      buttonText={buttonText}
       onSubmit={handleSubmit}
     >
       <label className='popup__label'>
