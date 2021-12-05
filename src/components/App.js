@@ -22,6 +22,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
+  const [buttonText, setButtonText] = useState('Save');
+  const [cardToBeDeletedId, setCardToBeDeletedId] = useState('');
 
   function logError(err) {
     console.log(err);
@@ -57,8 +59,9 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleDeletePlaceClick() {
+  function handleDeletePlaceClick(cardId) {
     setIsDeletePlacePopupOpen(true);
+    setCardToBeDeletedId(cardId);
   }
 
   function handleCardClick(data) {
@@ -66,9 +69,7 @@ function App() {
     setIsImagePopupOpen(true);
   }
 
-  function closeAllPopups(e) {
-    //console.log(e.target.closest('.popup'));
-    //e.target.closest('.popup').classList.remove('popup_opened');
+  function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -82,9 +83,12 @@ function App() {
       .updateUserInfo(userInfo)
       .then((result) => {
         setCurrentUser(result);
+        setIsEditProfilePopupOpen(false);
       })
-      .catch(logError);
-    setIsEditProfilePopupOpen(false);
+      .catch(logError)
+      .finally(() => {
+        setButtonText('Save');
+      });
   }
 
   function handleUpdateAvatar(userAvatarInfo) {
@@ -92,9 +96,12 @@ function App() {
       .updateUserAvatar(userAvatarInfo)
       .then((result) => {
         setCurrentUser(result);
+        setIsEditAvatarPopupOpen(false);
       })
-      .catch(logError);
-    setIsEditAvatarPopupOpen(false);
+      .catch(logError)
+      .finally(() => {
+        setButtonText('Save');
+      });
   }
 
   function handleCardLike(card) {
@@ -102,22 +109,41 @@ function App() {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     // Send a request to the API and getting the updated card data
-    api.changeCardLikeStatus(card._id, isLiked).then((newCard) => {
-      setCards(cards.map((c) => (c._id === card._id ? newCard : c)));
-    });
+    api
+      .changeCardLikeStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards(cards.map((c) => (c._id === card._id ? newCard : c)));
+      })
+      .catch(logError);
   }
 
   function handleCardDelete(cardId) {
-    api.deleteCard(cardId).then((result) => {
-      setCards(cards.filter((card) => card._id !== cardId));
-    });
+    api
+      .deleteCard(cardId)
+      .then((result) => {
+        setCards(cards.filter((card) => card._id !== cardId));
+      })
+      .catch(logError);
   }
 
   function handleAddPlaceSubmit(placeInfo) {
-    api.uploadPlace(placeInfo).then((result) => {
-      setCards([result, ...cards]);
-    });
-    setIsAddPlacePopupOpen(false);
+    api
+      .uploadPlace(placeInfo)
+      .then((result) => {
+        setCards([result, ...cards]);
+        setIsAddPlacePopupOpen(false);
+      })
+      .catch(logError)
+      .finally(() => {
+        setButtonText('Save');
+      });
+  }
+
+  function handleDeleteConfirmation(e) {
+    e.preventDefault();
+    handleCardDelete(cardToBeDeletedId);
+    setCardToBeDeletedId('');
+    setIsDeletePlacePopupOpen(false);
   }
 
   return (
@@ -127,18 +153,24 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          buttonText={buttonText}
+          setButtonText={setButtonText}
         />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          buttonText={buttonText}
+          setButtonText={setButtonText}
         />
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
+          buttonText={buttonText}
+          setButtonText={setButtonText}
         />
         <PopupWithForm
           title='Are you sure?'
@@ -146,6 +178,7 @@ function App() {
           isOpen={isDeletePlacePopupOpen}
           onClose={closeAllPopups}
           buttonText='Yes'
+          onSubmit={handleDeleteConfirmation}
         ></PopupWithForm>
         <ImagePopup
           cardData={selectedCard}
