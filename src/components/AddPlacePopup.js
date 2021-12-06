@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 const AddPlacePopup = ({
@@ -10,6 +10,11 @@ const AddPlacePopup = ({
 }) => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+
+  useEffect(() => {
+    setName('');
+    setLink('');
+  }, [isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
