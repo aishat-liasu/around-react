@@ -20,7 +20,7 @@ const EditProfilePopup = ({
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -51,7 +51,7 @@ const EditProfilePopup = ({
           minLength='2'
           maxLength='45'
           placeholder='Name'
-          value={name}
+          value={name || ''}
           onChange={(e) => setName(e.target.value)}
           required
         />
@@ -67,7 +67,7 @@ const EditProfilePopup = ({
           minLength='2'
           maxLength='200'
           placeholder='About'
-          value={description}
+          value={description || ''}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
